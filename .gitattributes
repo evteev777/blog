@@ -1,0 +1,8 @@
+# for Github language info
+# Example of a `.gitattributes` file which reclassifies `.html` files as Java:
+*.html linguist-language=Java
+*.css linguist-language=Java
+*.js linguist-language=Java
+*.wolf linguist-language=Java
+*.wolf2 linguist-language=Java
+*.xml linguist-language=Java
