@@ -18,6 +18,7 @@
         <h2.version>1.4.200</h2.version>
         <flyway-core.version>6.5.5</flyway-core.version>
         <lombok.version>1.18.12</lombok.version>
+        <hibernate-types-52.version>2.9.13</hibernate-types-52.version>
     </properties>
 
     <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-parent -->
@@ -79,6 +80,12 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flyway-core.version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.vladmihalcea/hibernate-types-52 -->
+        <dependency>
+            <groupId>com.vladmihalcea</groupId>
+            <artifactId>hibernate-types-52</artifactId>
+            <version>${hibernate-types-52.version}</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-test -->

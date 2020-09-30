@@ -1,17 +1,21 @@
 package ru.evteev.blog.model;
 
-import lombok.NoArgsConstructor;
-
+import java.time.LocalDateTime;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
-
 @Entity
 @Table(name = "post_comments")
 public class PostComment {
@@ -20,14 +24,17 @@ public class PostComment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "parent_id")
-    private int parentId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_id", referencedColumnName = "id")
+    private PostComment parentComment;
 
-    @Column(name = "post_id", nullable = false)
-    private int postId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
+    private Post post;
 
-    @Column(name = "user_id", nullable = false)
-    private int userId;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     @Column(name = "time", nullable = false)
     private LocalDateTime time;

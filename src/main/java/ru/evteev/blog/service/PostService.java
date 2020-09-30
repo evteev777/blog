@@ -1,11 +1,11 @@
 package ru.evteev.blog.service;
 
+import java.time.LocalDateTime;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.evteev.blog.enums.ModerationStatus;
 import ru.evteev.blog.model.Post;
-
-import java.time.LocalDateTime;
+import ru.evteev.blog.model.User;
 
 @RequiredArgsConstructor
 
@@ -16,7 +16,7 @@ public class PostService {
         Post post = new Post();
         post.setIsActive(true);
         post.setModerationStatus(ModerationStatus.NEW);
-        post.setUserId(0);
+        post.setUser(new User());
         post.setTime(LocalDateTime.now());
         post.setTitle("New title");
         post.setText("New text");

@@ -1,17 +1,18 @@
 package ru.evteev.blog.model;
 
-import lombok.NoArgsConstructor;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
 @NoArgsConstructor
-
 @Entity
 @Table(name = "users")
 public class User {
@@ -21,7 +22,7 @@ public class User {
     private int id;
 
     @Column(name = "is_moderator", nullable = false)
-    private Boolean isModerator;
+    private boolean isModerator;
 
     @Column(name = "reg_time", nullable = false)
     private LocalDateTime regTime;
@@ -32,6 +33,7 @@ public class User {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password", nullable = false)
     private String password;
 
@@ -39,5 +41,5 @@ public class User {
     private String code;
 
     @Column(name = "photo", columnDefinition = "TEXT")
-    private String photo;
+    private String photoURL;
 }
