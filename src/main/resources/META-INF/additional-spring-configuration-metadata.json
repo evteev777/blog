@@ -1,0 +1,33 @@
+{
+  "properties": [
+    {
+      "name": "blog.title",
+      "type": "java.lang.String",
+      "description": "Description for blog.title."
+    },
+    {
+      "name": "blog.subtitle",
+      "type": "java.lang.String",
+      "description": "Description for blog.subtitle."
+    },
+    {
+      "name": "blog.phone",
+      "type": "java.lang.String",
+      "description": "Description for blog.phone."
+    },
+    {
+      "name": "blog.email",
+      "type": "java.lang.String",
+      "description": "Description for blog.email."
+    },
+    {
+      "name": "blog.copyright",
+      "type": "java.lang.String",
+      "description": "Description for blog.copyright."
+    },
+    {
+      "name": "blog.copyrightFrom",
+      "type": "java.lang.String",
+      "description": "Description for blog.copyrightFrom."
+    }
+  ] }

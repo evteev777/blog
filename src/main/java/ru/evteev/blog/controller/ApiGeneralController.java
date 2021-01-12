@@ -1,7 +1,19 @@
 package ru.evteev.blog.controller;
 
-import org.springframework.stereotype.Controller;
+import lombok.Data;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import ru.evteev.blog.api.response.InitResponse;
 
-@Controller
+@Data
+
+@RestController
 public class ApiGeneralController {
+
+    private final InitResponse initResponse;
+
+    @GetMapping("/api/init")
+    public InitResponse init() {
+        return initResponse;
+    }
 }
