@@ -1,6 +1,8 @@
-package ru.evteev.blog.model;
+package ru.evteev.blog.model.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,18 +17,24 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "tag2post")
-public class TagToPost {
+@Table(name = "post_votes")
+public class PostVote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "tag_id", referencedColumnName = "id", nullable = false)
-    private Tag tag;
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    private User user;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private Post post;
+
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
+
+    @Column(name = "value", nullable = false, length = 1)
+    private Byte value;
 }

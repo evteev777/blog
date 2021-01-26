@@ -1,7 +1,7 @@
-package ru.evteev.blog.model;
+package ru.evteev.blog.model.entity;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,8 +22,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import org.hibernate.annotations.TypeDef;
-import ru.evteev.blog.enums.ModerationStatus;
-import ru.evteev.blog.enums.PostgreSQLEnumType;
+import ru.evteev.blog.model.enums.ModerationStatus;
+import ru.evteev.blog.model.enums.PostgreSQLEnumType;
 
 @Data
 @NoArgsConstructor
@@ -52,7 +52,7 @@ public class Post {
     private User user;
 
     @Column(name = "time", nullable = false)
-    private LocalDateTime time;
+    private Date time;
 
     @Column(name = "title", nullable = false)
     private String title;
@@ -66,10 +66,10 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<PostComment> postComments = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "tag2post",
-        joinColumns = {@JoinColumn(name = "post_id")},
-        inverseJoinColumns = {@JoinColumn(name = "tag_id")}
-    )
-    private List<Tag> tags;
+//    @OneToMany(mappedBy = "post")
+@ManyToMany(cascade = CascadeType.ALL)
+@JoinTable(name = "tag2post",
+    joinColumns = @JoinColumn(name = "tag_id"),
+    inverseJoinColumns = @JoinColumn(name = "post_id"))
+    List<Tag> tags = new ArrayList<>();
 }

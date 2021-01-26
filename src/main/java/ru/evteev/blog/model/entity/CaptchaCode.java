@@ -1,5 +1,6 @@
-package ru.evteev.blog.model;
+package ru.evteev.blog.model.entity;
 
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,20 +13,19 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "global_settings")
-public class GlobalSetting {
+@Table(name = "captcha_codes")
+public class CaptchaCode {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "time", nullable = false)
+    private LocalDateTime time;
+
     @Column(name = "code", nullable = false)
     private String code;
 
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "value", nullable = false)
-    private String value;
-
+    @Column(name = "secret_code", nullable = false)
+    private String secretCode;
 }

@@ -1,4 +1,4 @@
-package ru.evteev.blog.enums;
+package ru.evteev.blog.model.enums;
 
 public enum ModerationStatus {
     NEW,

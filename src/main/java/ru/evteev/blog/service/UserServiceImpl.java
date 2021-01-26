@@ -2,7 +2,8 @@ package ru.evteev.blog.service;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.model.User;
+import ru.evteev.blog.api.response.UserIdNameResponse;
+import ru.evteev.blog.model.entity.User;
 import ru.evteev.blog.repository.UserRepository;
 
 @Data
@@ -14,5 +15,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUser(int id) {
         return userRepository.getById(id);
+    }
+
+    @Override
+    public Boolean getApiAuthCheck() {
+        return false;
+    }
+
+    @Override
+    public UserIdNameResponse getUserIdNameResponse(User user) {
+        UserIdNameResponse userIdNameResponse = new UserIdNameResponse();
+        userIdNameResponse.setId(user.getId());
+        userIdNameResponse.setName(user.getName());
+        return userIdNameResponse;
     }
 }

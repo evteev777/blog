@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import ru.evteev.blog.model.Post;
+import ru.evteev.blog.model.entity.Post;
 import ru.evteev.blog.service.PostService;
 
 @RequiredArgsConstructor
@@ -16,6 +16,7 @@ public class DefaultController {
 
     @GetMapping("/")
     public String greeting(Model model) {
+        // TODO
         Post post = postService.getPost(1);
         model.addAttribute("post", post);
         return "index";

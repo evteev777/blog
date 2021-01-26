@@ -1,8 +1,28 @@
 package ru.evteev.blog.controller;
 
-import org.springframework.stereotype.Controller;
+import lombok.Data;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import ru.evteev.blog.api.response.PostsResponse;
+import ru.evteev.blog.service.PostService;
 
-@Controller
+@Data
+@RestController
+@RequestMapping("/api/post")
 public class ApiPostController {
+
+    private final PostService postService;
+
+    @GetMapping("")
+    public ResponseEntity<PostsResponse> getPosts(
+        @RequestParam(name = "offset") int offset,
+        @RequestParam(name = "limit") int limit,
+        @RequestParam(name = "mode") String mode) {
+
+        return ResponseEntity.ok(postService.getPosts(offset, limit, mode));
+    }
 
 }

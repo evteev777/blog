@@ -2,10 +2,10 @@ package ru.evteev.blog.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
-import ru.evteev.blog.model.entity.Post;
+import ru.evteev.blog.model.entity.Tag;
 
 @Repository
-public interface PostRepository extends CrudRepository<Post, Integer> {
+public interface TagRepository extends CrudRepository<Tag, Integer> {
 
-    Post getById(int id);
+    Tag getById(int id);
 }

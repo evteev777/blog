@@ -1,4 +1,4 @@
-package ru.evteev.blog.model;
+package ru.evteev.blog.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
