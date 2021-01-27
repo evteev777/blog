@@ -5,10 +5,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.evteev.blog.api.response.GlobalSettingsDto;
 import ru.evteev.blog.api.response.InitResponse;
-import ru.evteev.blog.api.response.SettingsResponse;
 import ru.evteev.blog.api.response.TagsResponse;
-import ru.evteev.blog.service.SettingsService;
+import ru.evteev.blog.service.GlobalSettingsService;
 import ru.evteev.blog.service.TagService;
 
 @Data
@@ -18,7 +18,7 @@ import ru.evteev.blog.service.TagService;
 public class ApiGeneralController {
 
     private final InitResponse initResponse;
-    private final SettingsService settingsService;
+    private final GlobalSettingsService globalSettingsService;
     private final TagService tagService;
 
     @GetMapping("/init")
@@ -27,8 +27,8 @@ public class ApiGeneralController {
     }
 
     @GetMapping("/settings")
-    public ResponseEntity<SettingsResponse> settings() {
-        return ResponseEntity.ok(settingsService.getGlobalSettings());
+    public ResponseEntity<GlobalSettingsDto> getGlobalSettings() {
+        return ResponseEntity.ok(globalSettingsService.getGlobalSettings());
     }
 
     @GetMapping("/tag")
