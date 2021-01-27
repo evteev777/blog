@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,7 +28,6 @@ public class Tag {
     @Column(name = "name", nullable = false)
     private String name;
 
-//    @OneToMany(mappedBy = "tag")
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tag2post",
         joinColumns = @JoinColumn(name = "post_id"),

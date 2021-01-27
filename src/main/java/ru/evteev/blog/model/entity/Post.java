@@ -66,10 +66,9 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<PostComment> postComments = new ArrayList<>();
 
-//    @OneToMany(mappedBy = "post")
-@ManyToMany(cascade = CascadeType.ALL)
-@JoinTable(name = "tag2post",
-    joinColumns = @JoinColumn(name = "tag_id"),
-    inverseJoinColumns = @JoinColumn(name = "post_id"))
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "tag2post",
+        joinColumns = @JoinColumn(name = "tag_id"),
+        inverseJoinColumns = @JoinColumn(name = "post_id"))
     List<Tag> tags = new ArrayList<>();
 }
