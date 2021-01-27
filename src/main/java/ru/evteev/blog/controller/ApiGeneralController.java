@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.evteev.blog.api.response.GlobalSettingsDto;
 import ru.evteev.blog.api.response.InitResponse;
-import ru.evteev.blog.api.response.TagsResponse;
+import ru.evteev.blog.api.response.TagListResponse;
 import ru.evteev.blog.service.GlobalSettingsService;
 import ru.evteev.blog.service.TagService;
 
@@ -32,7 +32,7 @@ public class ApiGeneralController {
     }
 
     @GetMapping("/tag")
-    public ResponseEntity<TagsResponse> getTags() {
-        return ResponseEntity.ok(tagService.getTags());
+    public ResponseEntity<TagListResponse> getTagList() {
+        return ResponseEntity.ok(tagService.getTagList());
     }
 }

@@ -7,8 +7,8 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TagsResponse {
+public class TagListResponse {
 
     @JsonProperty("tags")
-    private List<TagResponse> tagResponses;
+    private List<TagResponse> tagResponseList;
 }

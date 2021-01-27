@@ -5,7 +5,7 @@ import java.util.List;
 import lombok.Data;
 import org.springframework.stereotype.Service;
 import ru.evteev.blog.api.response.TagResponse;
-import ru.evteev.blog.api.response.TagsResponse;
+import ru.evteev.blog.api.response.TagListResponse;
 import ru.evteev.blog.repository.TagRepository;
 
 @Data
@@ -14,16 +14,15 @@ public class TagServiceImpl implements TagService {
 
     private final TagRepository tagRepository;
 
-    public TagsResponse getTags() {
+    public TagListResponse getTagList() {
         List<TagResponse> tagResponseList = new ArrayList<>();
+        tagRepository.findAll().forEach(tag ->
+            tagResponseList.add(new TagResponse(tag.getName(), getTagWeight())));
+        return new TagListResponse(tagResponseList);
+    }
 
-        // TODO
-        String tagNameFamily = tagRepository.getById(1).getName();
-        tagResponseList.add(new TagResponse(tagNameFamily, 0.5));
-
-        String tagNameWork = tagRepository.getById(2).getName();
-        tagResponseList.add(new TagResponse(tagNameWork, 0.8));
-
-        return new TagsResponse(tagResponseList);
+    // TODO tag weight - Math.random()
+    private double getTagWeight() {
+        return Math.random();
     }
 }
