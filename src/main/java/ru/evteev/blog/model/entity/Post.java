@@ -1,7 +1,7 @@
 package ru.evteev.blog.model.entity;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,7 +52,7 @@ public class Post {
     private User user;
 
     @Column(name = "time", nullable = false)
-    private Date time;
+    private LocalDateTime time;
 
     @Column(name = "title", nullable = false)
     private String title;
