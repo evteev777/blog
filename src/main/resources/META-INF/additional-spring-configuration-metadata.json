@@ -1,33 +1,38 @@
 {
   "properties": [
     {
-      "name": "blog.title",
+      "name": "blog.details.title",
       "type": "java.lang.String",
-      "description": "Description for blog.title."
+      "description": "Description for blog.init.title."
     },
     {
-      "name": "blog.subtitle",
+      "name": "blog.details.subtitle",
       "type": "java.lang.String",
-      "description": "Description for blog.subtitle."
+      "description": "Description for blog.init.subtitle."
     },
     {
-      "name": "blog.phone",
+      "name": "blog.details.phone",
       "type": "java.lang.String",
-      "description": "Description for blog.phone."
+      "description": "Description for blog.init.phone."
     },
     {
-      "name": "blog.email",
+      "name": "blog.details.email",
       "type": "java.lang.String",
-      "description": "Description for blog.email."
+      "description": "Description for blog.init.email."
     },
     {
-      "name": "blog.copyright",
+      "name": "blog.details.copyright",
       "type": "java.lang.String",
-      "description": "Description for blog.copyright."
+      "description": "Description for blog.init.copyright."
     },
     {
-      "name": "blog.copyrightFrom",
+      "name": "blog.details.copyrightFrom",
       "type": "java.lang.String",
-      "description": "Description for blog.copyrightFrom."
+      "description": "Description for blog.init.copyrightFrom."
+    },
+    {
+      "name": "blog.post.announceLength",
+      "type": "java.lang.String",
+      "description": "Description for blog.post.announceLength."
     }
   ] }

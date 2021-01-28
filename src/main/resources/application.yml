@@ -1,5 +1,5 @@
 server:
-    port: 8080
+  port: 8080
 #    servlet:
 #        context-path: /blog
 
@@ -22,9 +22,12 @@ spring:
     locations: classpath:db/migration/{vendor}
 
 blog:
-  title: Александр Евтеев
-  subtitle: Личный блог
-  phone: +7 985 928-41-08
-  email: evteev777@gmail.com
-  copyright: Александр Евтеев
-  copyrightFrom: 2020
+  details:
+    title: Александр Евтеев
+    subtitle: Личный блог
+    phone: +7 985 928-41-08
+    email: evteev777@gmail.com
+    copyright: Александр Евтеев
+    copyrightFrom: 2020
+  post:
+    announceLength: 10

@@ -10,21 +10,21 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "init-response")
 public class InitResponse {
 
-    @Value("${blog.title}")
+    @Value("${blog.details.title}")
     private String title;
 
-    @Value("${blog.subtitle}")
+    @Value("${blog.details.subtitle}")
     private String subtitle;
 
-    @Value("${blog.phone}")
+    @Value("${blog.details.phone}")
     private String phone;
 
-    @Value("${blog.email}")
+    @Value("${blog.details.email}")
     private String email;
 
-    @Value("${blog.copyright}")
+    @Value("${blog.details.copyright}")
     private String copyright;
 
-    @Value("${blog.copyrightFrom}")
+    @Value("${blog.details.copyrightFrom}")
     private String copyrightFrom;
 }
