@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.api.response.GlobalSettingsDto;
+import ru.evteev.blog.model.api.response.GlobalSettingsDto;
 import ru.evteev.blog.model.enums.GlobalSetting;
 import ru.evteev.blog.repository.GlobalSettingsRepository;
 

@@ -1,14 +1,17 @@
 package ru.evteev.blog.service;
 
+import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.api.response.PostListResponse;
-import ru.evteev.blog.api.response.PostResponse;
+import ru.evteev.blog.model.api.response.PostListResponse;
+import ru.evteev.blog.model.api.response.PostResponse;
 import ru.evteev.blog.model.entity.Post;
+import ru.evteev.blog.model.entity.PostComment;
+import ru.evteev.blog.model.enums.ModerationStatus;
 import ru.evteev.blog.repository.PostRepository;
 
 @Data
@@ -27,17 +30,37 @@ public class PostServiceImpl implements PostService {
     }
 
     public PostListResponse getPostList(int offset, int limit, String mode) {
-        List<Post> activePostList = getActivePostList(offset, limit, mode);
+        List<Post> activePostList = getActiveAcceptedPostList(offset, limit, mode);
         // TODO postCount
         int postCount = activePostList.size();
         return new PostListResponse(postCount, getPostResponseList(activePostList));
     }
 
-    private List<Post> getActivePostList(int offset, int limit, String mode) {
-        List<Post> activePostList = new ArrayList<>();
-        // TODO offset, limit, mode
-        postRepository.findAll().forEach(activePostList::add);
-        return activePostList;
+    private List<Post> getActiveAcceptedPostList(int offset, int limit, String mode) {
+        List<Post> postList;
+        List<List<PostComment>> postCommentList;
+
+        switch (mode) {
+            case "popular":
+                postList = postRepository.getPopularPosts(
+                    true, ModerationStatus.ACCEPTED.toString(), LocalDateTime.now());
+                break;
+//            case "best":
+//                postList = postRepository
+//                    .findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTimeDesc(accepted, now);
+//                break;
+            case "early":
+                postList = postRepository
+                    .findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTimeDesc(
+                        ModerationStatus.ACCEPTED, LocalDateTime.now());
+                break;
+            default: // including "recent"
+                postList = postRepository
+                    .findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTime(
+                        ModerationStatus.ACCEPTED, LocalDateTime.now());
+                break;
+        }
+        return postList;
     }
 
     private List<PostResponse> getPostResponseList(List<Post> postList) {

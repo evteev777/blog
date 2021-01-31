@@ -2,7 +2,7 @@ package ru.evteev.blog.service;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.api.response.UserIdNameResponse;
+import ru.evteev.blog.model.api.response.UserIdNameResponse;
 import ru.evteev.blog.model.entity.User;
 import ru.evteev.blog.repository.UserRepository;
 

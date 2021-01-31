@@ -1,6 +1,6 @@
 package ru.evteev.blog.service;
 
-import ru.evteev.blog.api.response.UserIdNameResponse;
+import ru.evteev.blog.model.api.response.UserIdNameResponse;
 import ru.evteev.blog.model.entity.User;
 
 public interface UserService {

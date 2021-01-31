@@ -5,9 +5,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.evteev.blog.api.response.GlobalSettingsDto;
-import ru.evteev.blog.api.response.InitResponse;
-import ru.evteev.blog.api.response.TagListResponse;
+import ru.evteev.blog.model.api.response.GlobalSettingsDto;
+import ru.evteev.blog.model.api.response.InitResponse;
+import ru.evteev.blog.model.api.response.TagListResponse;
 import ru.evteev.blog.service.GlobalSettingsService;
 import ru.evteev.blog.service.TagService;
 

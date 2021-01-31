@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.api.response.TagResponse;
-import ru.evteev.blog.api.response.TagListResponse;
+import ru.evteev.blog.model.api.response.TagListResponse;
+import ru.evteev.blog.model.api.response.TagResponse;
 import ru.evteev.blog.repository.TagRepository;
 
 @Data

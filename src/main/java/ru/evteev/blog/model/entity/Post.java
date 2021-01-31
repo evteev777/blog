@@ -1,7 +1,6 @@
 package ru.evteev.blog.model.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -64,11 +63,11 @@ public class Post {
     private int viewCount;
 
     @OneToMany(mappedBy = "post")
-    private List<PostComment> postComments = new ArrayList<>();
+    private List<PostComment> postComments;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tag2post",
         joinColumns = @JoinColumn(name = "tag_id"),
         inverseJoinColumns = @JoinColumn(name = "post_id"))
-    List<Tag> tags = new ArrayList<>();
+    List<Tag> tags;
 }

@@ -1,4 +1,4 @@
-package ru.evteev.blog.api.response;
+package ru.evteev.blog.model.api.response;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

@@ -28,7 +28,7 @@ public class PostComment {
     @JoinColumn(name = "parent_id", referencedColumnName = "id")
     private PostComment parentComment;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
     private Post post;
 

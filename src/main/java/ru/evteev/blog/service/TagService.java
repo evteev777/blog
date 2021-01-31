@@ -1,6 +1,6 @@
 package ru.evteev.blog.service;
 
-import ru.evteev.blog.api.response.TagListResponse;
+import ru.evteev.blog.model.api.response.TagListResponse;
 
 public interface TagService {
 

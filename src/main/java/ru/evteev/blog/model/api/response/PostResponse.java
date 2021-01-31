@@ -1,4 +1,4 @@
-package ru.evteev.blog.api.response;
+package ru.evteev.blog.model.api.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
