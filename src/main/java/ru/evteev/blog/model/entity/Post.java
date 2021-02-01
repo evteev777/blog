@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +45,7 @@ public class Post {
     @Column(name = "moderator_id")
     private Integer moderatorId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
@@ -65,9 +64,12 @@ public class Post {
     @OneToMany(mappedBy = "post")
     private List<PostComment> postComments;
 
+    @OneToMany(mappedBy = "post")
+    private List<PostVote> postVotes;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "tag2post",
         joinColumns = @JoinColumn(name = "tag_id"),
         inverseJoinColumns = @JoinColumn(name = "post_id"))
-    List<Tag> tags;
+    private List<Tag> tags;
 }

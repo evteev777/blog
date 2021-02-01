@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import ru.evteev.blog.model.api.response.PostListResponse;
 import ru.evteev.blog.model.api.response.PostResponse;
 import ru.evteev.blog.model.entity.Post;
-import ru.evteev.blog.model.entity.PostComment;
 import ru.evteev.blog.model.enums.ModerationStatus;
 import ru.evteev.blog.repository.PostRepository;
 
@@ -38,26 +37,23 @@ public class PostServiceImpl implements PostService {
 
     private List<Post> getActiveAcceptedPostList(int offset, int limit, String mode) {
         List<Post> postList;
-        List<List<PostComment>> postCommentList;
 
         switch (mode) {
             case "popular":
                 postList = postRepository.getPopularPosts(
-                    true, ModerationStatus.ACCEPTED.toString(), LocalDateTime.now());
+                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
                 break;
-//            case "best":
-//                postList = postRepository
-//                    .findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTimeDesc(accepted, now);
-//                break;
+            case "best":
+                postList = postRepository.getBestPosts(
+                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+                break;
             case "early":
-                postList = postRepository
-                    .findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTimeDesc(
-                        ModerationStatus.ACCEPTED, LocalDateTime.now());
+                postList = postRepository.getEarlyPosts(
+                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
                 break;
             default: // including "recent"
-                postList = postRepository
-                    .findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTime(
-                        ModerationStatus.ACCEPTED, LocalDateTime.now());
+                postList = postRepository.getRecentPosts(
+                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
                 break;
         }
         return postList;

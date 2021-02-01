@@ -14,34 +14,41 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
 
     Post getById(int id);
 
-    List<Post> findAllByIsActiveIsTrueAndModerationStatusAndTimeBefore(
-        ModerationStatus moderationStatus, LocalDateTime time);
+    default List<Post> getRecentPosts(
+        boolean isActive, ModerationStatus moderationStatus, LocalDateTime time) {
+        return findAllByIsActiveAndModerationStatusAndTimeBeforeOrderByTime(
+            isActive, moderationStatus, time);
+    }
 
-    // "recent" sorting mode
-    List<Post> findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTime(
-        ModerationStatus moderationStatus, LocalDateTime time);
+    List<Post> findAllByIsActiveAndModerationStatusAndTimeBeforeOrderByTime(
+        boolean isActive, ModerationStatus moderationStatus, LocalDateTime time);
 
-    // "popular" sorting mode
-//    List<Post> getPopularPosts(boolean isActive,
-//        ModerationStatus moderationStatus, LocalDateTime time);
 
-    @Query(value =
-        "SELECT count(c) AS comments_count,  p.* AS post "
-            + "FROM posts p "
-            + "LEFT JOIN post_comments c on p.id = c.post_id "
-            + "WHERE p.is_active = :isActive "
-                + "AND p.moderation_status = :moderationStatus "
-                + "AND p.time <= :time "
-            + "GROUP BY p.id "
-            + "ORDER BY comments_count DESC, p.view_count DESC, p.time DESC;",
-        nativeQuery = true)
+    @Query(value = "select p AS post from Post p "
+        + "where p.isActive = :isActive AND p.moderationStatus = :moderationStatus AND p.time <= :time "
+        + "order by size(p.postComments) desc, p.viewCount desc, p.time desc ")
     List<Post> getPopularPosts(
         @Param("isActive") boolean isActive,
-        @Param("moderationStatus") String moderationStatus,
+        @Param("moderationStatus") ModerationStatus moderationStatus,
         @Param("time") LocalDateTime time);
 
-    // "early" sorting mode
-    List<Post> findAllByIsActiveIsTrueAndModerationStatusAndTimeBeforeOrderByTimeDesc(
-        ModerationStatus moderationStatus, LocalDateTime time);
+    @Query(value = "select p AS post from Post p "
+        + "where p.isActive = :isActive AND p.moderationStatus = :moderationStatus AND p.time <= :time "
+        + "order by "
+//TODO       + "size(p.) desc, "
+        + "p.time desc ")
+    List<Post> getBestPosts(
+        @Param("isActive") boolean isActive,
+        @Param("moderationStatus") ModerationStatus moderationStatus,
+        @Param("time") LocalDateTime time);
 
+
+    default List<Post> getEarlyPosts(
+        boolean isActive, ModerationStatus moderationStatus, LocalDateTime time) {
+        return findAllByIsActiveAndModerationStatusAndTimeBeforeOrderByTimeDesc(
+            isActive, moderationStatus, time);
+    }
+
+    List<Post> findAllByIsActiveAndModerationStatusAndTimeBeforeOrderByTimeDesc(
+        boolean isActive, ModerationStatus moderationStatus, LocalDateTime time);
 }
