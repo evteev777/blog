@@ -2,15 +2,20 @@ package ru.evteev.blog.service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
 import ru.evteev.blog.model.api.response.PostListResponse;
 import ru.evteev.blog.model.api.response.PostResponse;
 import ru.evteev.blog.model.entity.Post;
 import ru.evteev.blog.model.enums.ModerationStatus;
+import ru.evteev.blog.model.projection.PostWithCountsDto;
 import ru.evteev.blog.repository.PostRepository;
 
 @Data
@@ -29,55 +34,59 @@ public class PostServiceImpl implements PostService {
     }
 
     public PostListResponse getPostList(int offset, int limit, String mode) {
-        List<Post> activePostList = getActiveAcceptedPostList(offset, limit, mode);
-        // TODO postCount
-        int postCount = activePostList.size();
-        return new PostListResponse(postCount, getPostResponseList(activePostList));
+
+        int count = postRepository.getPostCount(
+            true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+
+        List<PostWithCountsDto> list = postRepository.getPostWithCountsList(
+            true, ModerationStatus.ACCEPTED, LocalDateTime.now(),
+            getPageRequest(offset, limit, mode));
+
+        List<PostResponse> postResponseList = list.stream()
+            .map(this::getPostResponse)
+            .collect(Collectors.toList());
+        return new PostListResponse(count, postResponseList);
     }
 
-    private List<Post> getActiveAcceptedPostList(int offset, int limit, String mode) {
-        List<Post> postList;
+    private PageRequest getPageRequest(int offset, int limit, String mode) {
+        Sort sortByViewCountDesc = Sort.by(Direction.DESC, "viewCount");
+        Sort sortByTimeDesc = Sort.by(Direction.DESC, "time");
 
+        Sort sort;
         switch (mode) {
             case "popular":
-                postList = postRepository.getPopularPosts(
-                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+                sort = JpaSort.unsafe(Direction.DESC, "size(p.postComments)")
+                    .and(sortByViewCountDesc).and(sortByTimeDesc);
                 break;
             case "best":
-                postList = postRepository.getBestPosts(
-                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+                sort = JpaSort.unsafe(Direction.DESC, "size(p.postVotes)")
+                    .and(sortByViewCountDesc).and(sortByTimeDesc);
                 break;
             case "early":
-                postList = postRepository.getEarlyPosts(
-                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+                sort = Sort.by("time");
                 break;
-            default: // including "recent"
-                postList = postRepository.getRecentPosts(
-                    true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+            default: // include "recent"
+                sort = sortByTimeDesc;
                 break;
         }
-        return postList;
+        int pageNum = offset / limit;
+        return PageRequest.of(pageNum, limit, sort);
     }
 
-    private List<PostResponse> getPostResponseList(List<Post> postList) {
-        List<PostResponse> postResponseList = new ArrayList<>();
-        postList.forEach(post -> postResponseList.add(getPostResponse(post)));
-        return postResponseList;
-    }
-
-    private PostResponse getPostResponse(Post post) {
+    private PostResponse getPostResponse(PostWithCountsDto postWithCounts) {
         PostResponse postResponse = new PostResponse();
+        Post post = postWithCounts.getPost();
 
         postResponse.setId(post.getId());
         postResponse.setTimestamp(post.getTime().toEpochSecond(ZoneOffset.UTC));
-        postResponse.setUserIdName(
-            userService.getUserIdNameResponse(post.getUser()));
+        postResponse.setUserIdName(userService.getUserIdNameResponse(post.getUser()));
         postResponse.setTitle(post.getTitle());
         postResponse.setAnnounce(getAnnounce(post));
-        postResponse.setLikeCount(5);
-        postResponse.setDislikeCount(2);
-        postResponse.setCommentCount(7);
-        postResponse.setViewCount(20);
+        postResponse.setLikeCount(postWithCounts.getLikesCount());
+        postResponse.setDislikeCount(postWithCounts.getDislikesCount());
+        postResponse.setCommentCount(postWithCounts.getCommentsCount());
+        postResponse.setViewCount(post.getViewCount());
+
         return postResponse;
     }
 
