@@ -12,11 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.model.dto.api.response.PostListDTO;
 import ru.evteev.blog.model.dto.api.response.PostDTO;
+import ru.evteev.blog.model.dto.api.response.PostListDTO;
+import ru.evteev.blog.model.dto.projection.PostWithCountsDTO;
 import ru.evteev.blog.model.entity.Post;
 import ru.evteev.blog.model.enums.ModerationStatus;
-import ru.evteev.blog.model.dto.projection.PostWithCountsDTO;
 import ru.evteev.blog.repository.PostRepository;
 
 @Data
@@ -37,7 +37,7 @@ public class PostServiceImpl implements PostService {
     public PostListDTO getPostList(int offset, int limit, String mode) {
 
         int count = postRepository.getPostCount(
-            true, ModerationStatus.ACCEPTED, LocalDateTime.now());
+            true, ModerationStatus.ACCEPTED, LocalDateTime.now(Clock.systemUTC()));
 
         List<PostWithCountsDTO> list = postRepository.getPostWithCountsList(
             true, ModerationStatus.ACCEPTED, LocalDateTime.now(Clock.systemUTC()),
