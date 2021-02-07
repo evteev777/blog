@@ -75,6 +75,15 @@ INSERT INTO post_votes(time, user_id, post_id, value)
 VALUES ('2020-09-29 23:23:45-01'::timestamptz, '2', '8', '1');
 
 
-
 INSERT INTO post_votes(time, user_id, post_id, value)
 VALUES ('2020-09-29 23:23:45-01'::timestamptz, '1', '9', '1');
+
+
+INSERT INTO post_votes(time, user_id, post_id, value)
+VALUES ('2020-09-29 23:23:45-01'::timestamptz, '1', '19', '1');
+
+INSERT INTO post_votes(time, user_id, post_id, value)
+VALUES ('2020-09-29 23:23:45-01'::timestamptz, '2', '19', '1');
+
+INSERT INTO post_votes(time, user_id, post_id, value)
+VALUES ('2020-09-29 23:23:45-01'::timestamptz, '3', '19', '1');

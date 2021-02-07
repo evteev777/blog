@@ -45,50 +45,50 @@ VALUES ('2021-03-01 10:00:00+01'::timestamptz, '1', 'ACCEPTED', '1', '3', '0',
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '0',
+VALUES ('2020-12-31 23:59:59+01'::timestamptz, '1', 'ACCEPTED', '1', '1', '0',
         'Title of Post10', 'Post10 post10 post10');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '11',
+VALUES ('2021-01-01 00:00:01+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '11',
         'Title of Post11', 'Post11 post11 post11');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '12',
+VALUES ('2021-01-14 02:59:55+01'::timestamptz, '1', 'ACCEPTED', '1', '3', '12',
         'Title of Post12', 'Post12 post12 post12');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '13',
+VALUES ('2021-01-18 09:34:11+01'::timestamptz, '1', 'ACCEPTED', '1', '1', '13',
         'Title of Post13', 'Post13 post13 post13');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '14',
+VALUES ('2021-01-18 19:39:43+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '14',
         'Title of Post14', 'Post14 post14 post14');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '15',
+VALUES ('2021-01-22 14:00:40+01'::timestamptz, '1', 'ACCEPTED', '1', '3', '15',
         'Title of Post15', 'Post15 post15 post15');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '16',
+VALUES ('2021-01-19 11:30:30+01'::timestamptz, '1', 'ACCEPTED', '1', '1', '16',
         'Title of Post16', 'Post6 post16 post16');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '17',
+VALUES ('2021-01-22 19:39:43+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '17',
         'Title of Post17', 'Post17 post17 post17');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '18',
+VALUES ('2021-02-06 09:10:24+01'::timestamptz, '1', 'ACCEPTED', '1', '3', '18',
         'Title of Post18', 'Post18 post18 post18');
 
 INSERT INTO posts(time, is_active, moderation_status, moderator_id, user_id, view_count,
                   title, text)
-VALUES ('2020-09-30 01:55:55+01'::timestamptz, '1', 'ACCEPTED', '1', '2', '19',
+VALUES ('2021-02-07 03:51:52+01'::timestamptz, '1', 'ACCEPTED', '1', '1', '19',
         'Title of Post19', 'Post19 post95 post19');
