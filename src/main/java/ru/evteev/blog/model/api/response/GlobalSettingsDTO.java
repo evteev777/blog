@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 @Data
-public class GlobalSettingsDto {
+public class GlobalSettingsDTO {
 
     @JsonProperty("MULTIUSER_MODE")
     private boolean multiuserMode;

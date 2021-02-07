@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class TagResponse {
+public class TagDTO {
 
     private String name;
     private Double weight;

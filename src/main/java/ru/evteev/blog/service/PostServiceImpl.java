@@ -11,11 +11,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.model.api.response.PostListResponse;
-import ru.evteev.blog.model.api.response.PostResponse;
+import ru.evteev.blog.model.api.response.PostListDTO;
+import ru.evteev.blog.model.api.response.PostDTO;
 import ru.evteev.blog.model.entity.Post;
 import ru.evteev.blog.model.enums.ModerationStatus;
-import ru.evteev.blog.model.projection.PostWithCountsDto;
+import ru.evteev.blog.model.projection.PostWithCountsDTO;
 import ru.evteev.blog.repository.PostRepository;
 
 @Data
@@ -33,19 +33,19 @@ public class PostServiceImpl implements PostService {
         return postRepository.getById(id);
     }
 
-    public PostListResponse getPostList(int offset, int limit, String mode) {
+    public PostListDTO getPostList(int offset, int limit, String mode) {
 
         int count = postRepository.getPostCount(
             true, ModerationStatus.ACCEPTED, LocalDateTime.now());
 
-        List<PostWithCountsDto> list = postRepository.getPostWithCountsList(
+        List<PostWithCountsDTO> list = postRepository.getPostWithCountsList(
             true, ModerationStatus.ACCEPTED, LocalDateTime.now(),
             getPageRequest(offset, limit, mode));
 
-        List<PostResponse> postResponseList = list.stream()
+        List<PostDTO> postDTOList = list.stream()
             .map(this::getPostResponse)
             .collect(Collectors.toList());
-        return new PostListResponse(count, postResponseList);
+        return new PostListDTO(count, postDTOList);
     }
 
     private PageRequest getPageRequest(int offset, int limit, String mode) {
@@ -73,21 +73,21 @@ public class PostServiceImpl implements PostService {
         return PageRequest.of(pageNum, limit, sort);
     }
 
-    private PostResponse getPostResponse(PostWithCountsDto postWithCounts) {
-        PostResponse postResponse = new PostResponse();
+    private PostDTO getPostResponse(PostWithCountsDTO postWithCounts) {
+        PostDTO postDTO = new PostDTO();
         Post post = postWithCounts.getPost();
 
-        postResponse.setId(post.getId());
-        postResponse.setTimestamp(post.getTime().toEpochSecond(ZoneOffset.UTC));
-        postResponse.setUserIdName(userService.getUserIdNameResponse(post.getUser()));
-        postResponse.setTitle(post.getTitle());
-        postResponse.setAnnounce(getAnnounce(post));
-        postResponse.setLikeCount(postWithCounts.getLikesCount());
-        postResponse.setDislikeCount(postWithCounts.getDislikesCount());
-        postResponse.setCommentCount(postWithCounts.getCommentsCount());
-        postResponse.setViewCount(post.getViewCount());
+        postDTO.setId(post.getId());
+        postDTO.setTimestamp(post.getTime().toEpochSecond(ZoneOffset.UTC));
+        postDTO.setUserIdName(userService.getUserIdNameResponse(post.getUser()));
+        postDTO.setTitle(post.getTitle());
+        postDTO.setAnnounce(getAnnounce(post));
+        postDTO.setLikeCount(postWithCounts.getLikesCount());
+        postDTO.setDislikeCount(postWithCounts.getDislikesCount());
+        postDTO.setCommentCount(postWithCounts.getCommentsCount());
+        postDTO.setViewCount(post.getViewCount());
 
-        return postResponse;
+        return postDTO;
     }
 
     private String getAnnounce(Post post) {

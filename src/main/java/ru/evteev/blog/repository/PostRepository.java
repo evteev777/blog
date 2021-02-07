@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import ru.evteev.blog.model.entity.Post;
 import ru.evteev.blog.model.enums.ModerationStatus;
-import ru.evteev.blog.model.projection.PostWithCountsDto;
+import ru.evteev.blog.model.projection.PostWithCountsDTO;
 
 @Repository
 public interface PostRepository extends JpaRepository<Post, Integer> {
@@ -35,7 +35,7 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
         + "  and p.moderationStatus = :moderationStatus "
         + "  and p.time <= :time "
         + "group by p ")
-    List<PostWithCountsDto> getPostWithCountsList(
+    List<PostWithCountsDTO> getPostWithCountsList(
         @Param("isActive") boolean isActive,
         @Param("moderationStatus") ModerationStatus moderationStatus,
         @Param("time") LocalDateTime time,

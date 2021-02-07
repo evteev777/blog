@@ -1,8 +1,8 @@
 package ru.evteev.blog.service;
 
-import ru.evteev.blog.model.api.response.GlobalSettingsDto;
+import ru.evteev.blog.model.api.response.GlobalSettingsDTO;
 
 public interface GlobalSettingsService {
 
-    GlobalSettingsDto getGlobalSettings();
+    GlobalSettingsDTO getGlobalSettings();
 }

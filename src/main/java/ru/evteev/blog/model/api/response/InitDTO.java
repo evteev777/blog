@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "init-response")
-public class InitResponse {
+public class InitDTO {
 
     @Value("${blog.details.title}")
     private String title;

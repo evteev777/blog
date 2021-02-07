@@ -2,7 +2,7 @@ package ru.evteev.blog.service;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.model.api.response.UserIdNameResponse;
+import ru.evteev.blog.model.api.response.UserIdNameDTO;
 import ru.evteev.blog.model.entity.User;
 import ru.evteev.blog.repository.UserRepository;
 
@@ -23,10 +23,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserIdNameResponse getUserIdNameResponse(User user) {
-        UserIdNameResponse userIdNameResponse = new UserIdNameResponse();
-        userIdNameResponse.setId(user.getId());
-        userIdNameResponse.setName(user.getName());
-        return userIdNameResponse;
+    public UserIdNameDTO getUserIdNameResponse(User user) {
+        UserIdNameDTO userIdNameDTO = new UserIdNameDTO();
+        userIdNameDTO.setId(user.getId());
+        userIdNameDTO.setName(user.getName());
+        return userIdNameDTO;
     }
 }

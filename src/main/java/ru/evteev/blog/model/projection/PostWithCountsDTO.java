@@ -2,7 +2,7 @@ package ru.evteev.blog.model.projection;
 
 import ru.evteev.blog.model.entity.Post;
 
-public interface PostWithCountsDto {
+public interface PostWithCountsDTO {
 
     Post getPost();
     Integer getCommentsCount();

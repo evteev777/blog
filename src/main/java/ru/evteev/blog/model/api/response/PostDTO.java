@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class PostResponse {
+public class PostDTO {
 
     private int id;
     private long timestamp;
     @JsonProperty("user")
-    private UserIdNameResponse userIdName;
+    private UserIdNameDTO userIdName;
     private String title;
     private String announce;
     private int likeCount;

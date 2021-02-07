@@ -4,7 +4,7 @@ import java.util.EnumMap;
 import java.util.Map;
 import lombok.Data;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.model.api.response.GlobalSettingsDto;
+import ru.evteev.blog.model.api.response.GlobalSettingsDTO;
 import ru.evteev.blog.model.enums.GlobalSetting;
 import ru.evteev.blog.repository.GlobalSettingsRepository;
 
@@ -14,8 +14,8 @@ public class GlobalSettingsServiceImpl implements GlobalSettingsService {
 
     private final GlobalSettingsRepository globalSettingsRepository;
 
-    public GlobalSettingsDto getGlobalSettings() {
-        GlobalSettingsDto dto = new GlobalSettingsDto();
+    public GlobalSettingsDTO getGlobalSettings() {
+        GlobalSettingsDTO dto = new GlobalSettingsDTO();
 
         Map<GlobalSetting, Boolean> settings = new EnumMap<>(GlobalSetting.class);
         globalSettingsRepository.findAll().forEach(s -> settings.put(

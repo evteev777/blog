@@ -7,10 +7,10 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class PostListResponse {
+public class PostListDTO {
 
     private int count;
 
     @JsonProperty("posts")
-    private List<PostResponse> postResponseList;
+    private List<PostDTO> postDTOList;
 }
