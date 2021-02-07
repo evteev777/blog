@@ -1,5 +1,6 @@
 package ru.evteev.blog.service;
 
+import java.time.Clock;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
@@ -39,7 +40,7 @@ public class PostServiceImpl implements PostService {
             true, ModerationStatus.ACCEPTED, LocalDateTime.now());
 
         List<PostWithCountsDTO> list = postRepository.getPostWithCountsList(
-            true, ModerationStatus.ACCEPTED, LocalDateTime.now(),
+            true, ModerationStatus.ACCEPTED, LocalDateTime.now(Clock.systemUTC()),
             getPageRequest(offset, limit, mode));
 
         List<PostDTO> postDTOList = list.stream()
