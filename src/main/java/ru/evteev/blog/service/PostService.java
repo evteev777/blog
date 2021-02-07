@@ -1,6 +1,6 @@
 package ru.evteev.blog.service;
 
-import ru.evteev.blog.model.api.response.PostListDTO;
+import ru.evteev.blog.model.dto.api.response.PostListDTO;
 import ru.evteev.blog.model.entity.Post;
 
 public interface PostService {

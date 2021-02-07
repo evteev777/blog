@@ -12,11 +12,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
-import ru.evteev.blog.model.api.response.PostListDTO;
-import ru.evteev.blog.model.api.response.PostDTO;
+import ru.evteev.blog.model.dto.api.response.PostListDTO;
+import ru.evteev.blog.model.dto.api.response.PostDTO;
 import ru.evteev.blog.model.entity.Post;
 import ru.evteev.blog.model.enums.ModerationStatus;
-import ru.evteev.blog.model.projection.PostWithCountsDTO;
+import ru.evteev.blog.model.dto.projection.PostWithCountsDTO;
 import ru.evteev.blog.repository.PostRepository;
 
 @Data
@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
             getPageRequest(offset, limit, mode));
 
         List<PostDTO> postDTOList = list.stream()
-            .map(this::getPostResponse)
+            .map(this::getPostDTO)
             .collect(Collectors.toList());
         return new PostListDTO(count, postDTOList);
     }
@@ -57,11 +57,13 @@ public class PostServiceImpl implements PostService {
         switch (mode) {
             case "popular":
                 sort = JpaSort.unsafe(Direction.DESC, "size(p.postComments)")
-                    .and(sortByViewCountDesc).and(sortByTimeDesc);
+                    .and(sortByViewCountDesc)
+                    .and(sortByTimeDesc);
                 break;
             case "best":
                 sort = JpaSort.unsafe(Direction.DESC, "size(p.postVotes)")
-                    .and(sortByViewCountDesc).and(sortByTimeDesc);
+                    .and(sortByViewCountDesc)
+                    .and(sortByTimeDesc);
                 break;
             case "early":
                 sort = Sort.by("time");
@@ -74,7 +76,7 @@ public class PostServiceImpl implements PostService {
         return PageRequest.of(pageNum, limit, sort);
     }
 
-    private PostDTO getPostResponse(PostWithCountsDTO postWithCounts) {
+    private PostDTO getPostDTO(PostWithCountsDTO postWithCounts) {
         PostDTO postDTO = new PostDTO();
         Post post = postWithCounts.getPost();
 

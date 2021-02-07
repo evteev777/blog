@@ -1,4 +1,4 @@
-package ru.evteev.blog.model.api.response;
+package ru.evteev.blog.model.dto.api.response;
 
 import lombok.Data;
 

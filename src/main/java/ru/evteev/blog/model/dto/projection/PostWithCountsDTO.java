@@ -1,4 +1,4 @@
-package ru.evteev.blog.model.projection;
+package ru.evteev.blog.model.dto.projection;
 
 import ru.evteev.blog.model.entity.Post;
 
