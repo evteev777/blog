@@ -14,8 +14,8 @@ public class PostDTO {
     private UserIdNameDTO userIdName;
     private String title;
     private String announce;
+    private int viewCount;
+    private int commentCount;
     private int likeCount;
     private int dislikeCount;
-    private int commentCount;
-    private int viewCount;
 }

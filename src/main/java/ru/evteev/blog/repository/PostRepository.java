@@ -27,15 +27,15 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
         @Param("time") LocalDateTime time);
 
     @Query(value = "select p as post, "
-        + "  size(p.postComments) as commentsCount, "
-        + "  coalesce((select size(v) from v where v.value > 0 group by p), 0) as likesCount,"
-        + "  coalesce((select size(v) from v where v.value < 0 group by p), 0) as dislikesCount "
+        + "  size(p.postComments) as commentCount, "
+        + "  coalesce((select size(v) from v where v.value > 0 group by p), 0) as likeCount,"
+        + "  coalesce((select size(v) from v where v.value < 0 group by p), 0) as dislikeCount "
         + "from Post p left join p.postVotes v "
         + "where p.isActive = :isActive "
         + "  and p.moderationStatus = :moderationStatus "
         + "  and p.time <= :time "
         + "group by p ")
-    List<PostWithCountsDTO> getPostWithCountsList(
+    List<PostWithCountsDTO> getPostWithCountsDTOList(
         @Param("isActive") boolean isActive,
         @Param("moderationStatus") ModerationStatus moderationStatus,
         @Param("time") LocalDateTime time,

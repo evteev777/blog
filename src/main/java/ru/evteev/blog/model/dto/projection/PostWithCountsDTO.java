@@ -5,7 +5,7 @@ import ru.evteev.blog.model.entity.Post;
 public interface PostWithCountsDTO {
 
     Post getPost();
-    Integer getCommentsCount();
-    Integer getLikesCount();
-    Integer getDislikesCount();
+    Integer getCommentCount();
+    Integer getLikeCount();
+    Integer getDislikeCount();
 }

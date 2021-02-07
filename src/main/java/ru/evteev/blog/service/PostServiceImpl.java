@@ -2,16 +2,15 @@ package ru.evteev.blog.service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.jpa.domain.JpaSort;
 import org.springframework.stereotype.Service;
+import ru.evteev.blog.model.dto.mapper.PostDTOMapper;
 import ru.evteev.blog.model.dto.api.response.PostDTO;
 import ru.evteev.blog.model.dto.api.response.PostListDTO;
 import ru.evteev.blog.model.dto.projection.PostWithCountsDTO;
@@ -25,9 +24,7 @@ public class PostServiceImpl implements PostService {
 
     private final PostRepository postRepository;
     private final UserService userService;
-
-    @Value("${blog.post.announceLength}")
-    private int announceLength;
+    private final PostDTOMapper postDTOMapper;
 
     @Override
     public Post getPost(int id) {
@@ -39,12 +36,12 @@ public class PostServiceImpl implements PostService {
         int count = postRepository.getPostCount(
             true, ModerationStatus.ACCEPTED, LocalDateTime.now(Clock.systemUTC()));
 
-        List<PostWithCountsDTO> list = postRepository.getPostWithCountsList(
+        List<PostWithCountsDTO> postWithCountsDTOList = postRepository.getPostWithCountsDTOList(
             true, ModerationStatus.ACCEPTED, LocalDateTime.now(Clock.systemUTC()),
             getPageRequest(offset, limit, mode));
 
-        List<PostDTO> postDTOList = list.stream()
-            .map(this::getPostDTO)
+        List<PostDTO> postDTOList = postWithCountsDTOList.stream()
+            .map(postDTOMapper::postWithCountsDTOToPostDTO)
             .collect(Collectors.toList());
         return new PostListDTO(count, postDTOList);
     }
@@ -74,28 +71,5 @@ public class PostServiceImpl implements PostService {
         }
         int pageNum = offset / limit;
         return PageRequest.of(pageNum, limit, sort);
-    }
-
-    private PostDTO getPostDTO(PostWithCountsDTO postWithCounts) {
-        PostDTO postDTO = new PostDTO();
-        Post post = postWithCounts.getPost();
-
-        postDTO.setId(post.getId());
-        postDTO.setTimestamp(post.getTime().toEpochSecond(ZoneOffset.UTC));
-        postDTO.setUserIdName(userService.getUserIdNameResponse(post.getUser()));
-        postDTO.setTitle(post.getTitle());
-        postDTO.setAnnounce(getAnnounce(post));
-        postDTO.setLikeCount(postWithCounts.getLikesCount());
-        postDTO.setDislikeCount(postWithCounts.getDislikesCount());
-        postDTO.setCommentCount(postWithCounts.getCommentsCount());
-        postDTO.setViewCount(post.getViewCount());
-
-        return postDTO;
-    }
-
-    private String getAnnounce(Post post) {
-        String postText = post.getText();
-        return postText.length() < announceLength ?
-            postText : postText.substring(0, announceLength);
     }
 }
